@@ -192,5 +192,21 @@ public class CalculadoraDePrecosTest {
 		
 		assertEquals(0, BigDecimal.valueOf(10.0).compareTo(precoTotal));
 	}
+	
+	@Test
+	public void deveAplicar20PorCentoAMaisQuandoForBallet(){
+		Sessao sessao =	SessaoTestDataBuilder
+				.umaSessao()
+				.deUmEspetaculoDoTipo(TipoDeEspetaculo.BALLET)
+				.comTotalIngressos(50)
+				.comIngressoReservados(30)
+				.comOPreco(100.0)
+				.comDuracaoEmMinutos(50)
+				.build();
+		
+		BigDecimal precoTotal = CalculadoraDePrecos.calcula(sessao,1);
+		
+		assertEquals(0, BigDecimal.valueOf(120.0).compareTo(precoTotal));
+	}
 
 }
