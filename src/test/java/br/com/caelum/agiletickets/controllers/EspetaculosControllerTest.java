@@ -7,7 +7,12 @@ import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.validation.constraints.AssertTrue;
+
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -118,4 +123,23 @@ public class EspetaculosControllerTest {
 		assertThat(sessao.getIngressosDisponiveis(), is(2));
 	}
 
+	@Test 
+	public void deveCriarUmaSessaoSeInicioIgualAoFim(){
+		Espetaculo espetaculo = new Espetaculo();
+		DateTime inicio = DateTime.now();
+		DateTime fim = DateTime.now();
+		espetaculo.criaSessoes(inicio, fim, horario, periodicidade);
+		
+	}
+	
+	@Test
+	public void deveAdicionar5SessoesDiarias() {
+		
+	}
+	
+	@Test
+	public void deveAdicionar3SessoesSemanais(){
+		
+	}
+	
 }
