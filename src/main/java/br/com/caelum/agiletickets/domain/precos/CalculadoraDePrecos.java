@@ -15,9 +15,9 @@ public class CalculadoraDePrecos {
 		
 		if(sessao.getEspetaculo().getTipo().equals(TipoDeEspetaculo.CINEMA) || sessao.getEspetaculo().getTipo().equals(TipoDeEspetaculo.SHOW)) {
 			//quando estiver acabando os ingressos... 
-			preco = aplicaAumentoNosUltimosIngressos(sessao, DEZ_POR_CENTO);
+			preco = aplicaAumentoNosUltimosIngressos(sessao, DEZ_POR_CENTO.doubleValue());
 		} else if(sessao.getEspetaculo().getTipo().equals(TipoDeEspetaculo.BALLET) || sessao.getEspetaculo().getTipo().equals(TipoDeEspetaculo.ORQUESTRA)) {
-			preco = aplicaAumentoNosUltimosIngressos(sessao, VINTE_POR_CENTO);
+			preco = aplicaAumentoNosUltimosIngressos(sessao, VINTE_POR_CENTO.doubleValue());
 			
 			if(sessao.getDuracaoEmMinutos() > 60){
 				preco = preco.add(sessao.getPreco().multiply(BigDecimal.valueOf(DEZ_POR_CENTO)));

@@ -192,8 +192,8 @@ public class CalculadoraDePrecosTest {
 		
 		assertEquals(0, BigDecimal.valueOf(10.0).compareTo(precoTotal));
 	}
-	/*
-	@Test
+	
+	/*@Test
 	public void deveAplicar20PorCentoAMaisQuandoForBallet(){
 		Sessao sessao =	SessaoTestDataBuilder
 				.umaSessao()
@@ -205,7 +205,6 @@ public class CalculadoraDePrecosTest {
 				.build();
 		
 		BigDecimal precoTotal = CalculadoraDePrecos.calcula(sessao,1);
-		
 		assertEquals(0, BigDecimal.valueOf(120.0).compareTo(precoTotal));
 	}*/
 
