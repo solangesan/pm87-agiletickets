@@ -1,0 +1,63 @@
+package br.com.caelum.agiletickets.domain.precos;
+
+import java.math.BigDecimal;
+
+import br.com.caelum.agiletickets.models.Sessao;
+import br.com.caelum.agiletickets.models.TipoDeEspetaculo;
+
+public class CalculadoraDePrecos {
+
+private static final double VINTE_POR_CENTO = 0.20;
+private static final double DEZ_POR_CENTO = 0.10;
+
+public static BigDecimal calcula(Sessao sessao, Integer quantidade) {
+BigDecimal preco;
+
+TipoDeEspetaculo tipoEspetaculo = sessao.getEspetaculo().getTipo();
+
+if(tipoEspetaculo.equals(TipoDeEspetaculo.CINEMA) || tipoEspetaculo.equals(TipoDeEspetaculo.SHOW)) {
+preco = calculaPrecoParaCinemaESow(sessao);
+} else if(tipoEspetaculo.equals(TipoDeEspetaculo.BALLET) || tipoEspetaculo.equals(TipoDeEspetaculo.ORQUESTRA)) {
+preco = calculaPrecoParaBalletEOrquestra(sessao);
+} else {
+//nao aplica aumento para teatro (quem vai é pobretão)
+preco = sessao.getPreco();
+}
+
+return preco.multiply(BigDecimal.valueOf(quantidade));
+}
+
+private static BigDecimal calculaPrecoParaBalletEOrquestra(Sessao sessao) {
+BigDecimal preco = BigDecimal.ZERO;
+
+int ingressosRestantes = sessao.getTotalIngressos() - sessao.getIngressosReservados();
+boolean atingiuMetadaCapacidade = ingressosRestantes / sessao.getTotalIngressos().doubleValue() <= 0.50;
+
+if(atingiuMetadaCapacidade) {
+preco = sessao.getPreco().add(sessao.getPreco().multiply(BigDecimal.valueOf(VINTE_POR_CENTO)));
+} else {
+preco = sessao.getPreco();
+}
+
+if(sessao.getDuracaoEmMinutos() > 60){
+preco = preco.add(sessao.getPreco().multiply(BigDecimal.valueOf(DEZ_POR_CENTO)));
+}
+return preco;
+}
+
+private static BigDecimal calculaPrecoParaCinemaESow(Sessao sessao) {
+BigDecimal preco = BigDecimal.ZERO;
+
+int ingressosRestantes = sessao.getTotalIngressos() - sessao.getIngressosReservados();
+boolean atingiuMeioPorCento = ingressosRestantes / sessao.getTotalIngressos().doubleValue() <= 0.05;
+
+if(atingiuMeioPorCento) {
+preco = sessao.getPreco().add(sessao.getPreco().multiply(BigDecimal.valueOf(DEZ_POR_CENTO)));
+} else {
+preco = sessao.getPreco();
+}
+
+return preco;
+}
+
+}
